@@ -6,6 +6,10 @@ namespace BUS
 {
     public class LogBUS
 	{
+		public static string ClearLog()
+		{
+			return LogDAO.ClearLog();
+		}
 		public static string WriteLog(LogDTO log)
 		{
 			return LogDAO.WriteLog(log);

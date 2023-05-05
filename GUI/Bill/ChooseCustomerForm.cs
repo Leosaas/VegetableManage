@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Reporting.WinForms;
 using System.Data;
+using VegetablesManager.AppForm;
 
 namespace GUI
 {
@@ -27,9 +28,6 @@ namespace GUI
 		{
 			
 			InitializeComponent();
-			chkVisitor.Checked = true;
-			txtSearch.Enabled = false;
-			dgvData.Enabled = false;
 			dgvData.DataSource = CustomerBUS.GetAllCustomer();
 			AcceptButton = btnAccept;
 		}
@@ -108,24 +106,27 @@ namespace GUI
 			}
 		}
 
-		private void chkVisitor_CheckedChanged(object sender, EventArgs e)
-		{
-			txtSearch.Enabled = !chkVisitor.Checked;
-			dgvData.Enabled = !chkVisitor.Checked;	
-		}
 
 		private void btnMakeOrder_Click(object sender, EventArgs e)
 		{
-			if (!chkVisitor.Checked)
-			{
-				customerPhone = dgvData.SelectedRows[0].Cells["phonenumber"].Value.ToString();
-			}
+			customerPhone = dgvData.SelectedRows[0].Cells["phonenumber"].Value.ToString();
 			this.DialogResult = DialogResult.OK;
 		}
 
 		private void btnCancel_Click(object sender, EventArgs e)
 		{
 			this.DialogResult = DialogResult.Cancel;
+		}
+
+		private void btnAdd_Click(object sender, EventArgs e)
+		{
+			//this.Hide();
+			if(new CustomerHandleForm().ShowDialog() == DialogResult.OK)
+			{
+				MessageBoxForm.Show("Thêm thành công", "Thông báo");
+				dgvData.DataSource = CustomerBUS.GetAllCustomer();
+			}
+			//this.Show();
 		}
 	}
 }

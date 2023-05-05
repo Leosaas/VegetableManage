@@ -24,7 +24,12 @@ namespace GUI
 			LoadCboUnit();
 			dgvData.AutoGenerateColumns = false;
 			Reload();
-
+			if (!User.IsAdmin)
+			{
+				rightPanel.Visible = false;
+				btnAdd.Visible = false;
+				btnDelete.Visible = false;
+			}
 
 		}
 		private void LoadCboCategory()

@@ -131,6 +131,18 @@
     <Compile Include="Bill\BillList.Designer.cs">
       <DependentUpon>BillList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Customer\DebtDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Customer\DebtDetailForm.Designer.cs">
+      <DependentUpon>DebtDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customer\CustomerMainControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerMainControl.Designer.cs">
+      <DependentUpon>CustomerMainControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer\CustomerList.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -143,7 +155,19 @@
     <Compile Include="Customer\CustomerHandleForm.Designer.cs">
       <DependentUpon>CustomerHandleForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Customer\CustomerDebtList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customer\CustomerDebtList.Designer.cs">
+      <DependentUpon>CustomerDebtList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Log.cs" />
+    <Compile Include="FlashForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FlashForm.Designer.cs">
+      <DependentUpon>FlashForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +229,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ReportForm\ReportByProduct.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportForm\ReportByProduct.Designer.cs">
+      <DependentUpon>ReportByProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportForm\ReportDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportForm\ReportDetail.Designer.cs">
+      <DependentUpon>ReportDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportForm\ReportByMonth.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReportForm\ReportByMonth.Designer.cs">
+      <DependentUpon>ReportByMonth.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportForm\ReportMainControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -242,6 +284,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VegetableManagerDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="VegetableManagerDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VegetableManagerDataSet1.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Account\AccountHandleForm.resx">
       <DependentUpon>AccountHandleForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -275,11 +322,23 @@
     <EmbeddedResource Include="Bill\BillList.resx">
       <DependentUpon>BillList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Customer\DebtDetailForm.resx">
+      <DependentUpon>DebtDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customer\CustomerMainControl.resx">
+      <DependentUpon>CustomerMainControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Customer\CustomerList.resx">
       <DependentUpon>CustomerList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer\CustomerHandleForm.resx">
       <DependentUpon>CustomerHandleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customer\CustomerDebtList.resx">
+      <DependentUpon>CustomerDebtList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FlashForm.resx">
+      <DependentUpon>FlashForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -313,8 +372,20 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportDefinition\ProductReport.rdlc" />
+    <EmbeddedResource Include="ReportDefinition\SellBillByMonth.rdlc" />
+    <EmbeddedResource Include="ReportDefinition\OrderBillByMonth.rdlc" />
     <EmbeddedResource Include="ReportDefinition\SellBillReport.rdlc" />
     <EmbeddedResource Include="ReportDefinition\OrderBillReport.rdlc" />
+    <EmbeddedResource Include="ReportForm\ReportByProduct.resx">
+      <DependentUpon>ReportByProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportForm\ReportDetail.resx">
+      <DependentUpon>ReportDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportForm\ReportByMonth.resx">
+      <DependentUpon>ReportByMonth.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportForm\ReportMainControl.resx">
       <DependentUpon>ReportMainControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -350,6 +421,17 @@
     </None>
     <None Include="VegetableManagerDataSet.xss">
       <DependentUpon>VegetableManagerDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="VegetableManagerDataSet1.xsc">
+      <DependentUpon>VegetableManagerDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="VegetableManagerDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VegetableManagerDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="VegetableManagerDataSet1.xss">
+      <DependentUpon>VegetableManagerDataSet1.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -388,6 +470,10 @@
     <None Include="assets\help.png" />
     <None Include="assets\backup.png" />
     <None Include="assets\restore.png" />
+    <None Include="assets\clear.png" />
+    <None Include="assets\Flash.gif" />
+    <None Include="assets\debt.png" />
+    <None Include="assets\detail.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

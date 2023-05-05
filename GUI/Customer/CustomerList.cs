@@ -20,9 +20,12 @@ namespace GUI
 		{
 			InitializeComponent();
 			dgvData.AutoGenerateColumns = false;
-
-			Reload();
 			
+			Reload();
+			if(!User.IsAdmin) 
+			{ 
+				btnDelete.Visible = false;	
+			}
 
 
 		}

@@ -17,7 +17,7 @@ namespace GUI.Bill
 		public ReportMainControl()
 		{
 			InitializeComponent();
-			enableControl(new OrderProduct());
+			enableControl(new ReportByMonth());
 			state = 1;
 		}
 		public void enableControl(UserControl control)
@@ -37,24 +37,16 @@ namespace GUI.Bill
 		{
 			if (state == 1)
 				return;
-			enableControl(new OrderProduct());
+			enableControl(new ReportByMonth());
 			state = 1;
 
-		}
-
-		private void btnOrderList_Click(object sender, EventArgs e)
-		{
-			if (state == 3)
-				return;
-			enableControl(new BillList());
-			state = 3;
 		}
 
 		private void btnSellBill_Click(object sender, EventArgs e)
 		{
 			if (state == 2)
 				return;
-			enableControl(new SellBill());
+			enableControl(new ReportByProduct());
 			state = 2;
 		}
 	}

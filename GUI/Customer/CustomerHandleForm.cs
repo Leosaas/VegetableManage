@@ -21,6 +21,7 @@ namespace VegetablesManager.AppForm
 			lblTitle.Text = "Thêm";
 			lblRank.Visible = false;
 			nmrRank.Visible = false;
+		
 		}
 		public CustomerHandleForm(CustomerDTO customer)
 		{
@@ -35,6 +36,12 @@ namespace VegetablesManager.AppForm
 			txtName.Text = customer.CustomerName;
 			txtAddress.Text = customer.Address;
 			nmrRank.Value = customer.Rank;
+
+			if (!User.IsAdmin)
+			{
+				lblRank.Visible = false;
+				nmrRank.Visible = false;
+			}
 		}
 		private void btnCancel_Click(object sender, EventArgs e)
 		{

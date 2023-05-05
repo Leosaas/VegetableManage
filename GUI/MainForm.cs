@@ -24,19 +24,20 @@ namespace GUI
 		static UserDTO user;
 		int state;
 		public Panel MainPanel { get; set; }
-		AccountDTO account;
+		public static AccountDTO account;
 		public static UserDTO User { get => user; }
-		public AccountDTO Account { get => account; set => account = value; }
+		public static AccountDTO Account { get => account; set => account = value; }
 
 		public MainForm(UserDTO user,AccountDTO account)
 		{
 			InitializeComponent();
+			MainForm.account = account;
+			MainForm.user = user;
 			//         changeMenubar(new AdminMenuBar(this));
 			state = 1;
 			enableControl(new ProductMainControl());
 			EnableButton(btnProduct);
-			this.account = account;
-			MainForm.user = user;
+		
 			leftMenuPanel.Width = 230;
 			lblUser.Text = user.Name;
 			btnMenu.BackColor = Color.FromArgb(12, 108, 44);
@@ -53,9 +54,9 @@ namespace GUI
 		{
 			if(account.Type != true) //ko phải admin
 			{
-				MakeButtonInvisible(btnProduct, btnPrice, btnAccount);
-				enableControl(new BillMainControl());
-				EnableButton(btnBill);
+				MakeButtonInvisible(btnPrice, btnAccount,btnReport,btnSystem);
+				enableControl(new ProductMainControl());
+				EnableButton(btnProduct);
 			}
 		}
 		private void EnableButton(Button b)
@@ -241,9 +242,13 @@ namespace GUI
 
 		private void btnLogout_Click_1(object sender, EventArgs e)
 		{
-			Log.Write("Đăng xuất");
-			new LoginForm().Show();
-			this.Close();
+			if(MessageBoxForm.Show("Bạn có thực sự muốn đăng xuất ?","Xác nhận")== DialogResult.OK)
+			{
+				Log.Write("Đăng xuất");
+				new LoginForm().Show();
+				this.Close();
+			}
+			
 		}
 
 		private void btnInfomation_Click(object sender, EventArgs e)
@@ -261,7 +266,7 @@ namespace GUI
 			if (state == 6)
 				return;
 			EnableButton(btnCustomer);
-			enableControl(new CustomerList());
+			enableControl(new CustomerMainControl());
 			state = 6;
 		}
 
@@ -272,6 +277,15 @@ namespace GUI
 			EnableButton(btnSystem);
 			enableControl(new SystemControl());
 			state = 7;
+		}
+
+		private void btnReport_Click(object sender, EventArgs e)
+		{
+			if (state == 8)
+				return;
+			EnableButton(btnReport);
+			enableControl(new ReportMainControl());
+			state = 8;
 		}
 	}
 }

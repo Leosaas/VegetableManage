@@ -33,7 +33,7 @@ namespace GUI.Bill
 		{
 			this.menuPanel = new System.Windows.Forms.Panel();
 			this.btnSellBill = new System.Windows.Forms.Button();
-			this.btnOrderList = new System.Windows.Forms.Button();
+			this.btnBillList = new System.Windows.Forms.Button();
 			this.btnOrder = new System.Windows.Forms.Button();
 			this.contentPanel = new System.Windows.Forms.Panel();
 			this.menuPanel.SuspendLayout();
@@ -43,7 +43,7 @@ namespace GUI.Bill
 			// 
 			this.menuPanel.BackColor = System.Drawing.Color.Gray;
 			this.menuPanel.Controls.Add(this.btnSellBill);
-			this.menuPanel.Controls.Add(this.btnOrderList);
+			this.menuPanel.Controls.Add(this.btnBillList);
 			this.menuPanel.Controls.Add(this.btnOrder);
 			this.menuPanel.Dock = System.Windows.Forms.DockStyle.Top;
 			this.menuPanel.Location = new System.Drawing.Point(0, 0);
@@ -68,21 +68,21 @@ namespace GUI.Bill
 			this.btnSellBill.UseVisualStyleBackColor = true;
 			this.btnSellBill.Click += new System.EventHandler(this.btnSellBill_Click);
 			// 
-			// btnOrderList
+			// btnBillList
 			// 
-			this.btnOrderList.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnOrderList.ForeColor = System.Drawing.Color.Black;
-			this.btnOrderList.Image = global::GUI.Properties.Resources.billIcon;
-			this.btnOrderList.Location = new System.Drawing.Point(549, 10);
-			this.btnOrderList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.btnOrderList.Name = "btnOrderList";
-			this.btnOrderList.Size = new System.Drawing.Size(265, 102);
-			this.btnOrderList.TabIndex = 2;
-			this.btnOrderList.Text = "Danh sách phiếu nhập";
-			this.btnOrderList.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.btnOrderList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.btnOrderList.UseVisualStyleBackColor = true;
-			this.btnOrderList.Click += new System.EventHandler(this.btnOrderList_Click);
+			this.btnBillList.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnBillList.ForeColor = System.Drawing.Color.Black;
+			this.btnBillList.Image = global::GUI.Properties.Resources.billIcon;
+			this.btnBillList.Location = new System.Drawing.Point(549, 10);
+			this.btnBillList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.btnBillList.Name = "btnBillList";
+			this.btnBillList.Size = new System.Drawing.Size(265, 102);
+			this.btnBillList.TabIndex = 2;
+			this.btnBillList.Text = "Danh sách hoá đơn";
+			this.btnBillList.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.btnBillList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.btnBillList.UseVisualStyleBackColor = true;
+			this.btnBillList.Click += new System.EventHandler(this.btnOrderList_Click);
 			// 
 			// btnOrder
 			// 
@@ -131,7 +131,7 @@ namespace GUI.Bill
 		private Panel menuPanel;
 		private Button btnOrder;
 		private Panel contentPanel;
-		private Button btnOrderList;
+		private Button btnBillList;
 		private Button btnSellBill;
 	}
 }

@@ -10,8 +10,28 @@ namespace DAO
 {
     public class ProductDAO : BaseDAO
     {
-    
-        public static string InsertProduct(ProductDTO product)
+		public static DataTable GetBuyAndSellOfAllProductFromDateToDate(DateTime dateFrom,DateTime dateTo)
+		{
+
+			if (IsConnectDB())
+			{
+				try
+				{
+					DataTable dt = new DataTable();
+
+					string query = string.Format("exec GetBuyAndSellOfAllProductFromDateToDate @DateFrom = '{0}',@DateTo = '{1}'",dateFrom.ToString("yyyy-MM-dd"),dateTo.AddDays(1).ToString("yyyy-MM-dd"));
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					return null;
+				}
+			}
+			return null;
+		}
+		public static string InsertProduct(ProductDTO product)
         {
             if (IsConnectDB())
             {

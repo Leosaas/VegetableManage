@@ -19,6 +19,10 @@ namespace GUI.Bill
 			InitializeComponent();
 			enableControl(new OrderProduct());
 			state = 1;
+			if (!User.IsAdmin)
+			{
+				btnBillList.Visible = false;
+			}
 		}
 		public void enableControl(UserControl control)
 		{

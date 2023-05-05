@@ -23,6 +23,7 @@ namespace GUI.Bill
 		{
 			InitializeComponent();
 			dgvProduct.AutoGenerateColumns = false;
+			
 			LoadCategory();
 			LoadProduct();
 			InitBillDetail();
@@ -155,6 +156,7 @@ namespace GUI.Bill
 			txtProductName.DataBindings.Add("Text", dgvProduct.DataSource, "product_name");
 			txtUnit.DataBindings.Add("Text", dgvProduct.DataSource, "unit_name");
 			txtUnitPrice.DataBindings.Add("Text", dgvProduct.DataSource, "price");
+			txtStorageQuantity.DataBindings.Add("Text", dgvProduct.DataSource, "storage_quantity");
 		}
 		private void btnChange_Click(object sender, EventArgs e)
 		{
@@ -181,6 +183,12 @@ namespace GUI.Bill
 			if (FindProductInBill(dgvProduct.SelectedRows[0].Cells["idproduct"].Value.ToString()))
 			{
 				MessageBoxForm.Show("Sản phẩm đã có trong phiếu, vui lòng cập nhật sản phẩm trong phiếu thay vì thêm vào", "Thông báo");
+				return;
+			}
+			int storageQuantity = StorageBUS.GetQuantityOfProduct(dgvProduct.SelectedRows[0].Cells["idproduct"].Value.ToString());
+			if (storageQuantity < nmrCount.Value)
+			{
+				MessageBoxForm.Show("Số lượng sản phẩm trong kho không đủ (Hiện có: "+storageQuantity+")", "Thông báo");
 				return;
 			}
 			DataRow row = billDetails.NewRow();
@@ -272,7 +280,7 @@ namespace GUI.Bill
 			string customerPhone = customer == null ? null : customer.PhoneNumber;
 			int discount = customer == null ? 0 : customer.Rank * 5;
 			billTotal -= billTotal * (discount / 100.0);
-			SellBillDTO bill = new SellBillDTO(DateTime.Now, (float)billTotal, User.Username, discount, customer, lst);
+			SellBillDTO bill = new SellBillDTO(DateTime.Now, (float)billTotal, User.Username, discount, customer,chkToDebt.Checked, lst);
 			string message = SellBillBUS.MakeBill(bill);
 			if(message != null)
 			{
@@ -281,6 +289,9 @@ namespace GUI.Bill
 			}
 			MessageBoxForm.Show("Lập hoá đơn bán hàng thành công", "Thông báo");
 			Log.Write("Lập hoá đơn bán hàng " + SellBillBUS.GetLastID());
+
+
+
 			InitBillDetail();
 			CalculateTotalPrice();
 		}
@@ -298,12 +309,15 @@ namespace GUI.Bill
 			{
 				customer = null;
 				lblCustomer.Text = "Khách vãng lai";
+				chkToDebt.Enabled = false;
+				chkToDebt.Checked = false;
 			}
 				
 			else
 			{
 				customer = CustomerBUS.GetCustomerByPhoneNumber(phoneNumber);
 				lblCustomer.Text = customer.CustomerName;
+				chkToDebt.Enabled = true;
 			}
 				
 			CalculateTotalPrice();

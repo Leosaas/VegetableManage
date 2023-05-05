@@ -7,6 +7,67 @@ namespace DAO
 {
     public class OrderProductDAO : BaseDAO
     {
+		public static DataTable GetOrderBillByMonthAndYear(int month, int year)
+		{
+			DataTable dt = new DataTable();
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = string.Format("exec GetOrderBillByMonthAndYear @Month = '{0}',@Year = '{1}'", month, year);
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					//     MessageBoxForm.Show("Không thể tải lên danh sách sản phẩm do lỗi: " + e.Message, "Lỗi");
+					return null;
+				}
+			}
+			return null;
+		}
+		public static DataTable GetOrderBillByMonthAndYearFromDateToDate(DateTime dateFrom,DateTime dateTo)
+        {
+			DataTable dt = new DataTable();
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = string.Format("exec GetOrderBillByMonthAndYearFromDateToDate @DateFrom = '{0}',@DateTo = '{1}'", dateFrom.ToString("yyyy-MM-dd"), dateTo.AddDays(1).ToString("yyyy-MM-dd"));
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					//     MessageBoxForm.Show("Không thể tải lên danh sách sản phẩm do lỗi: " + e.Message, "Lỗi");
+					return null;
+				}
+			}
+			return null;
+		}
+
+		public static DataTable GetOrderBillFromDateToDate(DateTime dateFrom,DateTime dateTo)
+        {
+			DataTable dt = new DataTable();
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = string.Format("exec GetOrderBillFromDateToDate @DateFrom = '{0}',@DateTo = '{1}'",dateFrom.ToString("yyyy-MM-dd"),dateTo.ToString("yyyy-MM-dd"));
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					//     MessageBoxForm.Show("Không thể tải lên danh sách sản phẩm do lỗi: " + e.Message, "Lỗi");
+					return null;
+				}
+			}
+			return null;
+		}
         public static int GetLastID()
         {
             if (IsConnectDB())

@@ -45,7 +45,6 @@ namespace GUI
 			this.lblUser = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.leftMenuPanel = new System.Windows.Forms.Panel();
-			this.btnHelp = new System.Windows.Forms.Button();
 			this.btnSystem = new System.Windows.Forms.Button();
 			this.btnReport = new System.Windows.Forms.Button();
 			this.btnCustomer = new System.Windows.Forms.Button();
@@ -198,13 +197,12 @@ namespace GUI
 			// leftMenuPanel
 			// 
 			this.leftMenuPanel.AutoScroll = true;
-			this.leftMenuPanel.Controls.Add(this.btnHelp);
 			this.leftMenuPanel.Controls.Add(this.btnSystem);
-			this.leftMenuPanel.Controls.Add(this.btnReport);
-			this.leftMenuPanel.Controls.Add(this.btnCustomer);
 			this.leftMenuPanel.Controls.Add(this.btnInfomation);
 			this.leftMenuPanel.Controls.Add(this.btnAccount);
+			this.leftMenuPanel.Controls.Add(this.btnReport);
 			this.leftMenuPanel.Controls.Add(this.btnBill);
+			this.leftMenuPanel.Controls.Add(this.btnCustomer);
 			this.leftMenuPanel.Controls.Add(this.btnPrice);
 			this.leftMenuPanel.Controls.Add(this.btnProduct);
 			this.leftMenuPanel.Controls.Add(this.panel1);
@@ -213,22 +211,6 @@ namespace GUI
 			this.leftMenuPanel.Name = "leftMenuPanel";
 			this.leftMenuPanel.Size = new System.Drawing.Size(300, 674);
 			this.leftMenuPanel.TabIndex = 25;
-			// 
-			// btnHelp
-			// 
-			this.btnHelp.Dock = System.Windows.Forms.DockStyle.Top;
-			this.btnHelp.FlatAppearance.BorderSize = 0;
-			this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold);
-			this.btnHelp.ForeColor = System.Drawing.Color.White;
-			this.btnHelp.Image = global::GUI.Properties.Resources.help;
-			this.btnHelp.Location = new System.Drawing.Point(0, 702);
-			this.btnHelp.Name = "btnHelp";
-			this.btnHelp.Size = new System.Drawing.Size(279, 73);
-			this.btnHelp.TabIndex = 31;
-			this.btnHelp.Text = " Trợ giúp";
-			this.btnHelp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-			this.btnHelp.UseVisualStyleBackColor = true;
 			// 
 			// btnSystem
 			// 
@@ -255,13 +237,14 @@ namespace GUI
 			this.btnReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold);
 			this.btnReport.ForeColor = System.Drawing.Color.White;
 			this.btnReport.Image = global::GUI.Properties.Resources.report;
-			this.btnReport.Location = new System.Drawing.Point(0, 556);
+			this.btnReport.Location = new System.Drawing.Point(0, 410);
 			this.btnReport.Name = "btnReport";
 			this.btnReport.Size = new System.Drawing.Size(279, 73);
 			this.btnReport.TabIndex = 29;
 			this.btnReport.Text = " Báo cáo doanh thu";
 			this.btnReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
 			this.btnReport.UseVisualStyleBackColor = true;
+			this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
 			// 
 			// btnCustomer
 			// 
@@ -271,7 +254,7 @@ namespace GUI
 			this.btnCustomer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold);
 			this.btnCustomer.ForeColor = System.Drawing.Color.White;
 			this.btnCustomer.Image = global::GUI.Properties.Resources.customer;
-			this.btnCustomer.Location = new System.Drawing.Point(0, 483);
+			this.btnCustomer.Location = new System.Drawing.Point(0, 264);
 			this.btnCustomer.Name = "btnCustomer";
 			this.btnCustomer.Size = new System.Drawing.Size(279, 73);
 			this.btnCustomer.TabIndex = 28;
@@ -288,7 +271,7 @@ namespace GUI
 			this.btnInfomation.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold);
 			this.btnInfomation.ForeColor = System.Drawing.Color.White;
 			this.btnInfomation.Image = global::GUI.Properties.Resources.user2;
-			this.btnInfomation.Location = new System.Drawing.Point(0, 410);
+			this.btnInfomation.Location = new System.Drawing.Point(0, 556);
 			this.btnInfomation.Name = "btnInfomation";
 			this.btnInfomation.Size = new System.Drawing.Size(279, 73);
 			this.btnInfomation.TabIndex = 27;
@@ -305,7 +288,7 @@ namespace GUI
 			this.btnAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold);
 			this.btnAccount.ForeColor = System.Drawing.Color.White;
 			this.btnAccount.Image = global::GUI.Properties.Resources.user;
-			this.btnAccount.Location = new System.Drawing.Point(0, 337);
+			this.btnAccount.Location = new System.Drawing.Point(0, 483);
 			this.btnAccount.Name = "btnAccount";
 			this.btnAccount.Size = new System.Drawing.Size(279, 73);
 			this.btnAccount.TabIndex = 26;
@@ -322,7 +305,7 @@ namespace GUI
 			this.btnBill.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold);
 			this.btnBill.ForeColor = System.Drawing.Color.White;
 			this.btnBill.Image = global::GUI.Properties.Resources.billIcon;
-			this.btnBill.Location = new System.Drawing.Point(0, 264);
+			this.btnBill.Location = new System.Drawing.Point(0, 337);
 			this.btnBill.Name = "btnBill";
 			this.btnBill.Size = new System.Drawing.Size(279, 73);
 			this.btnBill.TabIndex = 25;
@@ -454,6 +437,5 @@ namespace GUI
 		private Button btnCustomer;
 		private Button btnReport;
 		private Button btnSystem;
-		private Button btnHelp;
 	}
 }

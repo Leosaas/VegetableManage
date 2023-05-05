@@ -14,13 +14,14 @@ namespace DTO
         float total;
         string username;
         CustomerDTO customer;
+        bool isDebit;
         List<BillDetailDTO> detail;
         int discount;
         public SellBillDTO()
         {
         }
 
-        public SellBillDTO(DateTime date, float total, string username,int discount,CustomerDTO customer, List<BillDetailDTO> detail)
+        public SellBillDTO(DateTime date, float total, string username,int discount,CustomerDTO customer,bool isDebit, List<BillDetailDTO> detail)
         {
             Date = date;
             Total = total;
@@ -28,6 +29,7 @@ namespace DTO
             Detail = detail;
             this.customer = customer;
             this.Discount = discount;
+            this.IsDebit = isDebit; 
         }
         [DisplayName("Mã phiếu")]
         public int Id { get => id; set => id = value; }
@@ -50,6 +52,9 @@ namespace DTO
                     return "Khách vãng lai";
                 return customer.CustomerName;
             } }
+        [DisplayName("Giảm giá")]
 		public int Discount { get => discount; set => discount = value; }
+        [Browsable(false)]
+		public bool IsDebit { get => isDebit; set => isDebit = value; }
 	}
 }

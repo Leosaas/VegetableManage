@@ -1,12 +1,18 @@
 ﻿using DAO;
 using DTO;
+using System;
 using System.Data;
 
 namespace BUS
 {
     public class ProductBUS
     {
-        public static ProductDTO GetProductById(string id)
+		public static DataTable GetBuyAndSellOfAllProductFromDateToDate(DateTime dateFrom, DateTime dateTo)
+        {
+            return ProductDAO.GetBuyAndSellOfAllProductFromDateToDate(dateFrom, dateTo);
+        }
+
+		public static ProductDTO GetProductById(string id)
         {
             return ProductDAO.GetProductByID(id);
         }

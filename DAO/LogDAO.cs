@@ -20,7 +20,7 @@ namespace DAO
 					cmd.Parameters.AddWithValue("time", log.Date);
 					cmd.Parameters.AddWithValue("action", log.Action);
 					cmd.ExecuteNonQuery();
-                    return "";
+                    return null;
                 }
                 catch(Exception e)
                 {
@@ -30,6 +30,25 @@ namespace DAO
             }
             return "Không thể kết nối tới CSDL !";
         }
+		public static string ClearLog()
+		{
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = "delete from dbo.LOG";
+					var cmd = new SqlCommand(query, connection);
+					cmd.ExecuteNonQuery();
+					return null;
+				}
+				catch (Exception e)
+				{
+					//MessageBoxForm.Show("Không thể thêm thể loại do lỗi: " + e.Message, "Lỗi");
+					return "Không thể ghi lịch sử do lỗi: " + e.Message;
+				}
+			}
+			return "Không thể kết nối tới CSDL !";
+		}
 		public static string WriteLog(string username, string action)
 		{
 			if (IsConnectDB())
@@ -42,7 +61,7 @@ namespace DAO
 					cmd.Parameters.AddWithValue("time", DateTime.Now);
 					cmd.Parameters.AddWithValue("action", action);
 					cmd.ExecuteNonQuery();
-					return "";
+					return null;
 				}
 				catch (Exception e)
 				{

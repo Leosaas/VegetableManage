@@ -15,7 +15,12 @@ namespace GUI
 		{
 			InitializeComponent();
 			Reload();
-
+			if (!User.IsAdmin)
+			{
+				rightPanel.Visible = false;
+				btnAdd.Visible = false;
+				btnDelete.Visible = false;
+			}
 		}
 
 

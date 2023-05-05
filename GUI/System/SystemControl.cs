@@ -153,5 +153,15 @@ namespace GUI
 				Application.Exit();
 			}
 		}
+
+		private void btnClearLog_Click(object sender, EventArgs e)
+		{
+			if(MessageBoxForm.Show("Thao tác này sẽ xoá toàn bộ lịch sử, bạn có chắc chắn ?","Xác nhận") == DialogResult.OK)
+			{
+				LogBUS.ClearLog();
+				MessageBoxForm.Show("Xoá thành công", "Thông báo");
+				Reload();
+			}
+		}
 	}
 }

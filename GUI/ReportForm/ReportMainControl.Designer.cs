@@ -32,9 +32,8 @@ namespace GUI.Bill
 		private void InitializeComponent()
 		{
 			this.menuPanel = new System.Windows.Forms.Panel();
-			this.btnSellBill = new System.Windows.Forms.Button();
-			this.btnOrderList = new System.Windows.Forms.Button();
-			this.btnOrder = new System.Windows.Forms.Button();
+			this.btnReportByProduct = new System.Windows.Forms.Button();
+			this.btnReportByMonth = new System.Windows.Forms.Button();
 			this.contentPanel = new System.Windows.Forms.Panel();
 			this.menuPanel.SuspendLayout();
 			this.SuspendLayout();
@@ -42,9 +41,8 @@ namespace GUI.Bill
 			// menuPanel
 			// 
 			this.menuPanel.BackColor = System.Drawing.Color.Gray;
-			this.menuPanel.Controls.Add(this.btnSellBill);
-			this.menuPanel.Controls.Add(this.btnOrderList);
-			this.menuPanel.Controls.Add(this.btnOrder);
+			this.menuPanel.Controls.Add(this.btnReportByProduct);
+			this.menuPanel.Controls.Add(this.btnReportByMonth);
 			this.menuPanel.Dock = System.Windows.Forms.DockStyle.Top;
 			this.menuPanel.Location = new System.Drawing.Point(0, 0);
 			this.menuPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -52,53 +50,37 @@ namespace GUI.Bill
 			this.menuPanel.Size = new System.Drawing.Size(1008, 124);
 			this.menuPanel.TabIndex = 0;
 			// 
-			// btnSellBill
+			// btnReportByProduct
 			// 
-			this.btnSellBill.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnSellBill.ForeColor = System.Drawing.Color.Black;
-			this.btnSellBill.Image = global::GUI.Properties.Resources.sellBill;
-			this.btnSellBill.Location = new System.Drawing.Point(289, 10);
-			this.btnSellBill.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.btnSellBill.Name = "btnSellBill";
-			this.btnSellBill.Size = new System.Drawing.Size(254, 102);
-			this.btnSellBill.TabIndex = 3;
-			this.btnSellBill.Text = "Lập hoá đơn bán hàng";
-			this.btnSellBill.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.btnSellBill.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.btnSellBill.UseVisualStyleBackColor = true;
-			this.btnSellBill.Click += new System.EventHandler(this.btnSellBill_Click);
+			this.btnReportByProduct.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnReportByProduct.ForeColor = System.Drawing.Color.Black;
+			this.btnReportByProduct.Image = global::GUI.Properties.Resources.sellBill;
+			this.btnReportByProduct.Location = new System.Drawing.Point(289, 10);
+			this.btnReportByProduct.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.btnReportByProduct.Name = "btnReportByProduct";
+			this.btnReportByProduct.Size = new System.Drawing.Size(254, 102);
+			this.btnReportByProduct.TabIndex = 3;
+			this.btnReportByProduct.Text = "Thống kê doanh thu theo sản phẩm";
+			this.btnReportByProduct.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.btnReportByProduct.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.btnReportByProduct.UseVisualStyleBackColor = true;
+			this.btnReportByProduct.Click += new System.EventHandler(this.btnSellBill_Click);
 			// 
-			// btnOrderList
+			// btnReportByMonth
 			// 
-			this.btnOrderList.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnOrderList.ForeColor = System.Drawing.Color.Black;
-			this.btnOrderList.Image = global::GUI.Properties.Resources.billIcon;
-			this.btnOrderList.Location = new System.Drawing.Point(549, 10);
-			this.btnOrderList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.btnOrderList.Name = "btnOrderList";
-			this.btnOrderList.Size = new System.Drawing.Size(265, 102);
-			this.btnOrderList.TabIndex = 2;
-			this.btnOrderList.Text = "Danh sách phiếu nhập";
-			this.btnOrderList.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.btnOrderList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.btnOrderList.UseVisualStyleBackColor = true;
-			this.btnOrderList.Click += new System.EventHandler(this.btnOrderList_Click);
-			// 
-			// btnOrder
-			// 
-			this.btnOrder.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.btnOrder.ForeColor = System.Drawing.Color.Black;
-			this.btnOrder.Image = global::GUI.Properties.Resources.orderIcon;
-			this.btnOrder.Location = new System.Drawing.Point(29, 10);
-			this.btnOrder.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.btnOrder.Name = "btnOrder";
-			this.btnOrder.Size = new System.Drawing.Size(254, 102);
-			this.btnOrder.TabIndex = 1;
-			this.btnOrder.Text = "Lập phiếu nhập hàng";
-			this.btnOrder.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-			this.btnOrder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-			this.btnOrder.UseVisualStyleBackColor = true;
-			this.btnOrder.Click += new System.EventHandler(this.btnOrder_Click);
+			this.btnReportByMonth.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnReportByMonth.ForeColor = System.Drawing.Color.Black;
+			this.btnReportByMonth.Image = global::GUI.Properties.Resources.orderIcon;
+			this.btnReportByMonth.Location = new System.Drawing.Point(29, 10);
+			this.btnReportByMonth.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+			this.btnReportByMonth.Name = "btnReportByMonth";
+			this.btnReportByMonth.Size = new System.Drawing.Size(254, 102);
+			this.btnReportByMonth.TabIndex = 1;
+			this.btnReportByMonth.Text = "Thống kê doanh thu theo tháng";
+			this.btnReportByMonth.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+			this.btnReportByMonth.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+			this.btnReportByMonth.UseVisualStyleBackColor = true;
+			this.btnReportByMonth.Click += new System.EventHandler(this.btnOrder_Click);
 			// 
 			// contentPanel
 			// 
@@ -111,14 +93,14 @@ namespace GUI.Bill
 			this.contentPanel.Size = new System.Drawing.Size(1008, 523);
 			this.contentPanel.TabIndex = 1;
 			// 
-			// BillMainControl
+			// ReportMainControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.contentPanel);
 			this.Controls.Add(this.menuPanel);
 			this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.Name = "BillMainControl";
+			this.Name = "ReportMainControl";
 			this.Size = new System.Drawing.Size(1008, 647);
 			this.menuPanel.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -129,9 +111,8 @@ namespace GUI.Bill
 		#endregion
 
 		private Panel menuPanel;
-		private Button btnOrder;
+		private Button btnReportByMonth;
 		private Panel contentPanel;
-		private Button btnOrderList;
-		private Button btnSellBill;
+		private Button btnReportByProduct;
 	}
 }

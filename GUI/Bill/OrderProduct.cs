@@ -138,6 +138,7 @@ namespace GUI.Bill
 		{
 			txtProductName.DataBindings.Add("Text", dgvProduct.DataSource, "product_name");
 			txtUnit.DataBindings.Add("Text", dgvProduct.DataSource, "unit_name");
+			txtStorageQuantity.DataBindings.Add("Text", dgvProduct.DataSource, "storage_quantity");
 		}
 		private void btnChange_Click(object sender, EventArgs e)
 		{
@@ -262,7 +263,6 @@ namespace GUI.Bill
 			CalculateTotalPrice();
 
 		}
-
 
 	}
 }

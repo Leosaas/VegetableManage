@@ -42,7 +42,7 @@ namespace GUI
 				MainForm mainForm = new MainForm(user,account);
 				Log.Write("Đăng nhập vào hệ thống");
 				mainForm.Show();
-				this.Hide();
+				this.Close();
 			}
 			else
 			{

@@ -7,7 +7,96 @@ namespace DAO
 {
     public class SellBillDAO : BaseDAO
     {
-        public static int GetLastID()
+		public static SellBillDTO GetSellBillById(int id)
+		{
+			SellBillDTO bill = null;
+			string customerPhone = "";
+			if (IsConnectDB())
+			{
+				string query = "exec GetSellBillById @Id";
+				var cmd = new SqlCommand(query, connection);
+				cmd.Parameters.AddWithValue("@Id", id);
+				var reader = cmd.ExecuteReader();
+				if (reader.Read())
+				{
+
+					int idsellbill = int.Parse(reader["idsellbill"].ToString());
+					DateTime date = DateTime.Parse(reader["date"].ToString());
+					float total = float.Parse(reader["total"].ToString());
+					customerPhone = reader["customer"].ToString();
+					string username = reader["username"].ToString();
+					int discount = int.Parse(reader["discount"].ToString());
+					bool isDebit = bool.Parse(reader["is_debit"].ToString());
+					bill = new SellBillDTO(date,total,username,discount,null,isDebit,null);
+					bill.Id = idsellbill;
+				}
+				reader.Close();
+				bill.Customer = CustomerDAO.GetCustomerByPhoneNumber(customerPhone);
+			}
+			return bill;
+		}
+		public static DataTable GetSellBillByMonthAndYear(int month, int year)
+		{
+			DataTable dt = new DataTable();
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = string.Format("exec GetSellBillByMonthAndYear @Month = '{0}',@Year = '{1}'", month, year);
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					//     MessageBoxForm.Show("Không thể tải lên danh sách sản phẩm do lỗi: " + e.Message, "Lỗi");
+					return null;
+				}
+			}
+			return null;
+		}
+		public static DataTable GetSellBillByMonthAndYearFromDateToDate(DateTime dateFrom, DateTime dateTo)
+		{
+			DataTable dt = new DataTable();
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = string.Format("exec GetSellBillByMonthAndYearFromDateToDate @DateFrom = '{0}',@DateTo = '{1}'", dateFrom.ToString("yyyy-MM-dd"), dateTo.AddDays(1).ToString("yyyy-MM-dd"));
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					//     MessageBoxForm.Show("Không thể tải lên danh sách sản phẩm do lỗi: " + e.Message, "Lỗi");
+					return null;
+				}
+			}
+			return null;
+		}
+
+		public static DataTable GetSellBillFromDateToDate(DateTime dateFrom, DateTime dateTo)
+		{
+			DataTable dt = new DataTable();
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = string.Format("exec GetSellBillFromDateToDate @DateFrom = '{0}',@DateTo = '{1}'", dateFrom.ToString("yyyy-MM-dd"), dateTo.ToString("yyyy-MM-dd"));
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					//     MessageBoxForm.Show("Không thể tải lên danh sách sản phẩm do lỗi: " + e.Message, "Lỗi");
+					return null;
+				}
+			}
+			return null;
+		}
+		public static int GetLastID()
         {
             if (IsConnectDB())
             {
@@ -38,7 +127,7 @@ namespace DAO
             {
                 try
                 {
-                    string query = "exec MakeNewSellBill @Date = @date, @Total = @total,@CustomerPhone = @customerPhone,@Username = @username,@Discount = @discount";
+                    string query = "exec MakeNewSellBill @Date = @date, @Total = @total,@CustomerPhone = @customerPhone,@Username = @username,@Discount = @discount,@IsDebit = @isDebit";
                     var cmd = new SqlCommand(query, connection);
                     cmd.Parameters.Add("@date", SqlDbType.SmallDateTime).Value = bill.Date;
                     cmd.Parameters.AddWithValue("@total", bill.Total);
@@ -53,7 +142,8 @@ namespace DAO
 
                     cmd.Parameters.AddWithValue("@username", bill.Username);
                     cmd.Parameters.AddWithValue("@discount", bill.Discount);
-                    cmd.ExecuteNonQuery();
+					cmd.Parameters.AddWithValue("@isDebit", bill.IsDebit);
+					cmd.ExecuteNonQuery();
                     bill.Id = GetLastID();
                     foreach (BillDetailDTO detail in bill.Detail)
                     {

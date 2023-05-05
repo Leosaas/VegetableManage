@@ -50,7 +50,7 @@ namespace GUI
 			this.idunit = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.unit_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnAdd = new System.Windows.Forms.Button();
-			this.panel2 = new System.Windows.Forms.Panel();
+			this.rightPanel = new System.Windows.Forms.Panel();
 			this.btnSave = new System.Windows.Forms.Button();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.cboUnit = new System.Windows.Forms.ComboBox();
@@ -64,7 +64,7 @@ namespace GUI
 			this.panel1.SuspendLayout();
 			this.mainPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
-			this.panel2.SuspendLayout();
+			this.rightPanel.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -287,17 +287,17 @@ namespace GUI
 			this.btnAdd.UseVisualStyleBackColor = false;
 			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
 			// 
-			// panel2
+			// rightPanel
 			// 
-			this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.panel2.Controls.Add(this.btnSave);
-			this.panel2.Controls.Add(this.panel3);
-			this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-			this.panel2.Location = new System.Drawing.Point(882, 92);
-			this.panel2.Name = "panel2";
-			this.panel2.Padding = new System.Windows.Forms.Padding(6);
-			this.panel2.Size = new System.Drawing.Size(272, 699);
-			this.panel2.TabIndex = 2;
+			this.rightPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+			this.rightPanel.Controls.Add(this.btnSave);
+			this.rightPanel.Controls.Add(this.panel3);
+			this.rightPanel.Dock = System.Windows.Forms.DockStyle.Right;
+			this.rightPanel.Location = new System.Drawing.Point(882, 92);
+			this.rightPanel.Name = "rightPanel";
+			this.rightPanel.Padding = new System.Windows.Forms.Padding(6);
+			this.rightPanel.Size = new System.Drawing.Size(272, 699);
+			this.rightPanel.TabIndex = 2;
 			// 
 			// btnSave
 			// 
@@ -442,7 +442,7 @@ namespace GUI
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
 			this.Controls.Add(this.mainPanel);
-			this.Controls.Add(this.panel2);
+			this.Controls.Add(this.rightPanel);
 			this.Controls.Add(this.panel1);
 			this.Margin = new System.Windows.Forms.Padding(12);
 			this.Name = "ProductList";
@@ -451,7 +451,7 @@ namespace GUI
 			this.panel1.PerformLayout();
 			this.mainPanel.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
-			this.panel2.ResumeLayout(false);
+			this.rightPanel.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
 			this.ResumeLayout(false);
@@ -465,7 +465,7 @@ namespace GUI
 		private System.Windows.Forms.TextBox txtSearch;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnFind;
-		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.Panel rightPanel;
 		private System.Windows.Forms.DataGridView dgvData;
 		private System.Windows.Forms.Button btnDelete;
 		private System.Windows.Forms.Button btnAdd;
