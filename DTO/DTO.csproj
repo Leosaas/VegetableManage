@@ -46,6 +46,7 @@
     <Compile Include="CategoryDTO.cs" />
     <Compile Include="AccountDTO.cs" />
     <Compile Include="BillDetailDTO.cs" />
+    <Compile Include="ServerConfigDTO.cs" />
     <Compile Include="SellBillDTO.cs" />
     <Compile Include="OrderBillDTO.cs" />
     <Compile Include="ProductDTO.cs" />

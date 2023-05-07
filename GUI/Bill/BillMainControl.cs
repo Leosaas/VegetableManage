@@ -19,7 +19,7 @@ namespace GUI.Bill
 			InitializeComponent();
 			enableControl(new OrderProduct());
 			state = 1;
-			if (!User.IsAdmin)
+			if (!User.IsManager)
 			{
 				btnBillList.Visible = false;
 			}

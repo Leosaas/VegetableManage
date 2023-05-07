@@ -24,7 +24,7 @@ namespace GUI
 			LoadCboUnit();
 			dgvData.AutoGenerateColumns = false;
 			Reload();
-			if (!User.IsAdmin)
+			if (!User.IsManager)
 			{
 				rightPanel.Visible = false;
 				btnAdd.Visible = false;

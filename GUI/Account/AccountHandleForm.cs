@@ -24,7 +24,7 @@ namespace VegetablesManager.AppForm
 			txtUsername.Text = account.Username;
 			txtUsername.Enabled = false;
 			txtPassword.Text = account.Password;
-			chkAdmin.Checked = account.Type;
+			cboRight.SelectedIndex = account.Type;
 			txtPassword.UseSystemPasswordChar = true;
 		}
 		private void btnCancel_Click(object sender, EventArgs e)
@@ -45,7 +45,7 @@ namespace VegetablesManager.AppForm
 
 		private void btnAccept_Click(object sender, EventArgs e)
 		{
-			account = new AccountDTO(txtUsername.Text, txtPassword.Text, chkAdmin.Checked);
+			account = new AccountDTO(txtUsername.Text, txtPassword.Text, cboRight.SelectedIndex);
 			if (string.IsNullOrEmpty(account.Username))
 			{
 				MessageBoxForm.Show("Tên đăng nhập không được để trống", "Thông báo");

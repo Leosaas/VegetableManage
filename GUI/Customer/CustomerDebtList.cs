@@ -19,14 +19,14 @@ namespace GUI
 		{
 			InitializeComponent();
 			dgvData.AutoGenerateColumns = false;
-			
+			cboFilter.SelectedIndex = 0;
 			Reload();
 
 
 		}
 		private void Reload()
 		{
-			DataTable dt = DebtBUS.GetAllCustomerHaveDebtWithDebtValue();
+			DataTable dt = cboFilter.SelectedIndex == 0 ? DebtBUS.GetAllCustomerWithDebt() : DebtBUS.GetAllCustomerHaveDebtWithDebtValue();
 			dt.Columns.Add("left", typeof(float));
 			foreach (DataRow row in dt.Rows)
 			{
@@ -123,5 +123,9 @@ namespace GUI
 			}
 		}
 
+		private void cboFilter_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			Reload();
+		}
 	}
 }

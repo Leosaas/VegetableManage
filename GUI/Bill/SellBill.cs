@@ -289,7 +289,10 @@ namespace GUI.Bill
 			}
 			MessageBoxForm.Show("Lập hoá đơn bán hàng thành công", "Thông báo");
 			Log.Write("Lập hoá đơn bán hàng " + SellBillBUS.GetLastID());
-
+			if (chkToDebt.Checked)
+			{
+				Log.Write("Ghi nợ cho khách hàng " + CustomerBUS.GetCustomerByPhoneNumber(customer.PhoneNumber).CustomerName + " hoá đơn số "+ SellBillBUS.GetLastID() + ", số tiền: " + billTotal);
+			}
 
 
 			InitBillDetail();

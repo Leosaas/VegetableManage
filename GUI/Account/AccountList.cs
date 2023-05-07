@@ -24,7 +24,25 @@ namespace GUI
 		}
 		private void Reload()
 		{
-			dgvData.DataSource = AccountBUS.GetAllAccount();
+			DataTable dt = AccountBUS.GetAllAccount();
+			dt.Columns.Add("right",typeof(string));
+			foreach (DataRow dr in dt.Rows)
+			{
+				switch (int.Parse(dr["type"].ToString()))
+				{
+					case 0:
+						dr["right"] = "Nhân viên";
+						break;
+					case 1:
+						dr["right"] = "Quản trị hệ thống";
+						break;
+					case 2:
+						dr["right"] = "Quản lý";
+						break;
+				}
+			}
+
+			dgvData.DataSource = dt;
 		}
 
 		private void btnAdd_Click(object sender, EventArgs e)
@@ -93,7 +111,7 @@ namespace GUI
 			}
 			string username = dgvData.SelectedRows[0].Cells["username"].Value.ToString();
 			string password = dgvData.SelectedRows[0].Cells["password"].Value.ToString();
-			bool type = bool.Parse(dgvData.SelectedRows[0].Cells["type"].Value.ToString());
+			int type = int.Parse(dgvData.SelectedRows[0].Cells["type"].Value.ToString());
 
 			AccountDTO account = new AccountDTO(username, password, type);
 			if (new AccountHandleForm(account).ShowDialog() == DialogResult.OK)

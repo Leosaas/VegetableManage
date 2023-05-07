@@ -22,7 +22,7 @@ namespace GUI
 			dgvData.AutoGenerateColumns = false;
 			
 			Reload();
-			if(!User.IsAdmin) 
+			if(!User.IsManager) 
 			{ 
 				btnDelete.Visible = false;	
 			}

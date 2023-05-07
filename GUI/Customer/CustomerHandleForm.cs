@@ -37,7 +37,7 @@ namespace VegetablesManager.AppForm
 			txtAddress.Text = customer.Address;
 			nmrRank.Value = customer.Rank;
 
-			if (!User.IsAdmin)
+			if (!User.IsManager)
 			{
 				lblRank.Visible = false;
 				nmrRank.Visible = false;

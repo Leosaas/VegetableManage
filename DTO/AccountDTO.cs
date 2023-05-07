@@ -10,12 +10,12 @@ namespace DTO
 	{
 		private string username;
 		private string password;
-		private bool type;
+		private int type;
 		public AccountDTO()
 		{
 		}
 
-		public AccountDTO(string username, string password, bool type)
+		public AccountDTO(string username, string password, int type)
 		{
 			this.username = username;
 			this.password = password;
@@ -24,6 +24,6 @@ namespace DTO
 
 		public string Username { get => username; set => username = value; }
 		public string Password { get => password; set => password = value; }
-		public bool Type { get => type; set => type = value; }
+		public int Type { get => type; set => type = value; }
 	}
 }

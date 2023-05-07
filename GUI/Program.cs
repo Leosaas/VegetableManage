@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BUS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,12 @@ namespace GUI
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new FlashForm());
+			if (ServerConfigBUS.ReadConfigFile() != null)
+			{
+				Application.Run(new FlashForm());
+				return;
+			}
+			Application.Run(new ServerConfigForm());
 		}
 	}
 }

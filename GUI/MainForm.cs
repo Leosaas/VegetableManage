@@ -26,7 +26,7 @@ namespace GUI
 		public Panel MainPanel { get; set; }
 		public static AccountDTO account;
 		public static UserDTO User { get => user; }
-		public static AccountDTO Account { get => account; set => account = value; }
+		public static AccountDTO Account { get => account; }
 
 		public MainForm(UserDTO user,AccountDTO account)
 		{
@@ -52,12 +52,25 @@ namespace GUI
 		}
 		private void GrantUserRight()
 		{
-			if(account.Type != true) //ko phải admin
+			switch (account.Type)
 			{
-				MakeButtonInvisible(btnPrice, btnAccount,btnReport,btnSystem);
-				enableControl(new ProductMainControl());
-				EnableButton(btnProduct);
+				case 0: //Nhân viên
+					MakeButtonInvisible(btnPrice, btnAccount, btnReport, btnSystem);
+					enableControl(new ProductMainControl());
+					EnableButton(btnProduct);
+					break;
+				case 1: //Admin
+					MakeButtonInvisible(btnPrice, btnReport, btnBill,btnProduct,btnCustomer );
+					enableControl(new AccountMainControl());
+					EnableButton(btnAccount);
+					break;
+				default://Quản lý
+					MakeButtonInvisible(btnAccount, btnSystem);
+					enableControl(new ProductMainControl());
+					EnableButton(btnProduct);
+					break;
 			}
+
 		}
 		private void EnableButton(Button b)
 		{

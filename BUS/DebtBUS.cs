@@ -9,6 +9,10 @@ namespace BUS
 {
     public class DebtBUS
 	{
+		public static DataTable GetAllCustomerWithDebt()
+		{
+			return DebtDAO.GetAllCustomerWithDebt();
+		}
 		public static float GetTotalDebtOfCustomer(string customerPhone)
 		{
 			return DebtDAO.GetTotalDebtOfCustomer(customerPhone);

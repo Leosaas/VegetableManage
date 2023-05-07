@@ -159,16 +159,18 @@ namespace DAO
 			{
 				try
 				{
-					string message = PayDebitByAmount(debt);
-					if (message != null)
-						return message;
+					
 
 					string query = "exec RemoveDebtOneBill @IdBill = @idbill";
 					var cmd = new SqlCommand(query, connection);
 					cmd.Parameters.AddWithValue("@idbill", debt.IdBill);
-
+					
 					cmd.ExecuteNonQuery();
-
+					debt.Pay = -debt.Pay;
+					debt.Infomation = "Trả nợ cho đơn hàng: " + debt.IdBill +", số nợ còn lại: "+GetTotalDebtOfCustomer(debt.CustomerPhone);
+					string message = PayDebitByAmount(debt);
+					if (message != null)
+						return message;
 					return null;
 				}
 				catch (Exception e)
@@ -178,6 +180,26 @@ namespace DAO
 				}
 			}
 			return "Không thể kết nối tới CSDL !";
+		}
+		public static DataTable GetAllCustomerWithDebt()
+		{
+			DataTable dt = new DataTable();
+			if (IsConnectDB())
+			{
+				try
+				{
+					string query = string.Format("exec GetAllCustomerWithDebt");
+					SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+					adapter.Fill(dt);
+					return dt;
+				}
+				catch (Exception e)
+				{
+					//     MessageBoxForm.Show("Không thể tải lên danh sách sản phẩm do lỗi: " + e.Message, "Lỗi");
+					return null;
+				}
+			}
+			return null;
 		}
 		public static DataTable GetAllCustomerHaveDebtWithDebtValue()
 		{

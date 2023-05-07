@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ServerConfigDAO.cs" />
     <Compile Include="DebtDAO.cs" />
     <Compile Include="SystemDAO.cs" />
     <Compile Include="AccountDAO.cs" />

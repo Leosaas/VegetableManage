@@ -3,15 +3,18 @@ using DTO;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using static System.Collections.Specialized.BitVector32;
 
 namespace DAO
 {
     public class SystemDAO : BaseDAO
     {
-		public static string BackupDatabase(string path)
+		public static string BackupDatabase()
 		{
-
+			string workingDirectory = Environment.CurrentDirectory;
+			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+			string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\Backup\";
 			if (IsConnectDB())
 			{
 				try

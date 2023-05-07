@@ -30,8 +30,15 @@ namespace GUI
 		{
 			
 			InitializeComponent();
+			if(DebtBUS.GetTotalDebtOfCustomer(customerPhone) == 0)
+			{
+				rightPanel.Visible = false;
+				panelBill.Visible = false;
+			}
 			dgvData.AutoGenerateColumns = false;
 			dgvData.DataSource = DebtBUS.GetDetailDebtOfCustomer(customerPhone);
+			dgvDetailPay.AutoGenerateColumns = false;
+			dgvDetailPay.DataSource = DebtBUS.GetDebtPayDetailOfCustomer(customerPhone);
 			lblCustomer.Text = CustomerBUS.GetCustomerByPhoneNumber(customerPhone).CustomerName;
 			this.customerPhone = customerPhone;
 			pay = DebtBUS.GetTotalPayOfCustomer(customerPhone);
@@ -68,6 +75,12 @@ namespace GUI
 		private void Reload()
 		{
 			dgvData.DataSource = DebtBUS.GetDetailDebtOfCustomer(customerPhone);
+			dgvDetailPay.DataSource = DebtBUS.GetDebtPayDetailOfCustomer(customerPhone);
+			if (DebtBUS.GetTotalDebtOfCustomer(customerPhone) == 0)
+			{
+				rightPanel.Visible = false;
+				panelBill.Visible = false;
+			}
 		}
 		private void btnExit_Click(object sender, EventArgs e)
 		{
@@ -181,6 +194,10 @@ namespace GUI
 			if (radMoneyPay.Checked)
 			{
 				nmrMoney.Enabled = true;
+				double total = (double)nmrMoney.Value;
+
+				RefreshDisplay(total);
+				lblLeft.Text = nmrMoney.Maximum - nmrMoney.Value + " VND";
 			}
 			else nmrMoney.Enabled = false;
 		}
@@ -204,6 +221,7 @@ namespace GUI
 					}
 					MessageBoxForm.Show("Thanh toán thành công", "Thông báo");
 					Reload();
+					Log.Write("Thanh toán toàn bộ nợ cho khách hàng "+CustomerBUS.GetCustomerByPhoneNumber(customerPhone).CustomerName+", số tiền: "+debit.Pay);
 				}
 			}
 			else if (radBillPay.Checked)
@@ -215,22 +233,55 @@ namespace GUI
 				}
 				if (MessageBoxForm.Show("Xác nhận thanh toán " + lblLeft.Text + " ?", "Thông báo") == DialogResult.OK)
 				{
+					if(dgvData.SelectedRows.Count == dgvData.RowCount)
+					{
+						DebtDTO debt = new DebtDTO();
+						debt.CustomerPhone = customerPhone;
+						debt.Pay = DebtBUS.GetTotalDebtOfCustomer(customerPhone) - DebtBUS.GetTotalPayOfCustomer(customerPhone);
+						debt.Infomation = "Thanh toán toàn bộ phiếu với giá trị: " + debt.Pay + " ,số nợ còn lại: 0 VND";
+						string messageFromBus = DebtBUS.RemoveAllDebtOfCustomer(debt);
+						if (messageFromBus != null)
+						{
+							MessageBoxForm.Show(messageFromBus, "Thông báo");
+							return;
+						}
+						MessageBoxForm.Show("Thanh toán thành công", "Thông báo");
+						Reload();
+						Log.Write("Thanh toán toàn bộ nợ cho khách hàng " + CustomerBUS.GetCustomerByPhoneNumber(customerPhone).CustomerName + ", số tiền: " + debt.Pay);
+						return;
+					}
+					DebtDTO debit = new DebtDTO();
+					debit.CustomerPhone = customerPhone;
+					double total = GetTotalDebtOfSelectedBill();
+					float pay = DebtBUS.GetTotalPayOfCustomer(customerPhone);
+					float left = (float)(total - pay);
+					debit.Pay = left;
+					debit.Infomation = "Thanh toán " + debit.Pay + " cho " + dgvData.SelectedRows.Count + " đơn hàng";
+					string message = DebtBUS.PayDebitByAmount(debit);
+					if (message != null)
+					{
+						MessageBoxForm.Show(message, "Thông báo");
+						return;
+					}
+
 					foreach (DataGridViewRow dr in dgvData.SelectedRows)
 					{
 						int billId = int.Parse(dr.Cells["idsellbill"].Value.ToString());
-						DebtDTO debit = new DebtDTO();
+						SellBillDTO sellBill = SellBillBUS.GetSellBillById(billId);	
+
+
+						debit = new DebtDTO();
 						debit.CustomerPhone = customerPhone;
-						debit.IdBill = billId;
-						double total = GetTotalDebtOfSelectedBill();
-						float pay = DebtBUS.GetTotalPayOfCustomer(customerPhone);
-						float left = (float)(total - pay);
-						debit.Pay = left;
-						string message = DebtBUS.RemoveDebtOneBill(debit);
+						debit.IdBill = sellBill.Id;
+
+						debit.Pay = sellBill.Total;
+						message = DebtBUS.RemoveDebtOneBill(debit);
 						if (message != null)
 						{
 							MessageBoxForm.Show(message, "Thông báo");
 							return;
 						}
+						Log.Write("Thanh toán nợ hoá đơn số: "+billId+" cho khách hàng " + CustomerBUS.GetCustomerByPhoneNumber(customerPhone).CustomerName + ", số tiền: " + -debit.Pay);
 					}
 					MessageBoxForm.Show("Thanh toán thành công", "Thông báo");
 					Reload();
@@ -257,6 +308,7 @@ namespace GUI
 					}
 					MessageBoxForm.Show("Thanh toán thành công", "Thông báo");
 					Reload();
+					Log.Write("Thanh toán nợ cho khách hàng " + CustomerBUS.GetCustomerByPhoneNumber(customerPhone).CustomerName + ", số tiền: " + debit.Pay);
 				}
 			}
 			

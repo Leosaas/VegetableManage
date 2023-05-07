@@ -13,7 +13,7 @@ namespace GUI
 		{
 			InitializeComponent();
 			Reload();
-			if (!User.IsAdmin)
+			if (!User.IsManager)
 			{
 				rightPanel.Visible = false;
 			}

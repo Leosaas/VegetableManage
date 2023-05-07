@@ -6,9 +6,9 @@ namespace BUS
 {
 	public class SystemBUS
 	{
-		public static string BackupDatabase(string path)
+		public static string BackupDatabase()
 		{
-			return SystemDAO.BackupDatabase(path);
+			return SystemDAO.BackupDatabase();
 		}
 		public static string RestoreDatabase(string path)
 		{

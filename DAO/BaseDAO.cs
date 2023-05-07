@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTO;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,15 +12,25 @@ namespace DAO
         public static SqlConnection Connection { get => connection; }
         public static bool IsConnectDB()
         {
+            string connstring;
+            ServerConfigDTO server = ServerConfigDAO.ReadConfigFile();
             string dataBaseName = "VegetableManager";
-            string server = "localhost";
-            string userName = "root";
-            string password = "anhldt2002";
+            string serverName = server.ServerName;
+            if (server.Integrated_security)
+            {
+				connstring = @"Data Source="+serverName+";Initial Catalog=" + dataBaseName + ";Integrated Security=True";
+            }
+            else
+            {
+                string userName = server.Username;
+				string password = server.Password;
+                connstring = @"Server=" + serverName + ";Database=" + dataBaseName + ";User Id=" + userName + ";Password=" + password + ";";
+			}
+            
             if (connection == null)
             {
                 try
                 {
-                    string connstring = @"Data Source=(local);Initial Catalog="+dataBaseName+";Integrated Security=True";
                     connection = new SqlConnection(connstring);
                     Connection.Open();
                 }

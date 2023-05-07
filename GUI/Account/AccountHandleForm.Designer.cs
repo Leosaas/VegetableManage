@@ -34,7 +34,6 @@ namespace VegetablesManager.AppForm
 			this.txtUsername = new System.Windows.Forms.TextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.label3 = new System.Windows.Forms.Label();
-			this.chkAdmin = new System.Windows.Forms.CheckBox();
 			this.chkShowPass = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtPassword = new System.Windows.Forms.TextBox();
@@ -44,6 +43,7 @@ namespace VegetablesManager.AppForm
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.btnAccept = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.cboRight = new System.Windows.Forms.ComboBox();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -60,8 +60,8 @@ namespace VegetablesManager.AppForm
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+			this.panel1.Controls.Add(this.cboRight);
 			this.panel1.Controls.Add(this.label3);
-			this.panel1.Controls.Add(this.chkAdmin);
 			this.panel1.Controls.Add(this.chkShowPass);
 			this.panel1.Controls.Add(this.label1);
 			this.panel1.Controls.Add(this.txtPassword);
@@ -71,7 +71,7 @@ namespace VegetablesManager.AppForm
 			this.panel1.Location = new System.Drawing.Point(0, 49);
 			this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(507, 136);
+			this.panel1.Size = new System.Drawing.Size(507, 156);
 			this.panel1.TabIndex = 12;
 			// 
 			// label3
@@ -79,24 +79,11 @@ namespace VegetablesManager.AppForm
 			this.label3.AutoSize = true;
 			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
 			this.label3.ForeColor = System.Drawing.Color.White;
-			this.label3.Location = new System.Drawing.Point(3, 101);
+			this.label3.Location = new System.Drawing.Point(7, 105);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(100, 29);
+			this.label3.Size = new System.Drawing.Size(95, 29);
 			this.label3.TabIndex = 23;
-			this.label3.Text = "Admin: ";
-			// 
-			// chkAdmin
-			// 
-			this.chkAdmin.AutoSize = true;
-			this.chkAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold);
-			this.chkAdmin.ForeColor = System.Drawing.Color.White;
-			this.chkAdmin.Location = new System.Drawing.Point(204, 94);
-			this.chkAdmin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-			this.chkAdmin.Name = "chkAdmin";
-			this.chkAdmin.Size = new System.Drawing.Size(88, 36);
-			this.chkAdmin.TabIndex = 22;
-			this.chkAdmin.Text = "Yes";
-			this.chkAdmin.UseVisualStyleBackColor = true;
+			this.label3.Text = "Quyền:";
 			// 
 			// chkShowPass
 			// 
@@ -173,10 +160,10 @@ namespace VegetablesManager.AppForm
 			this.panel3.Controls.Add(this.btnAccept);
 			this.panel3.Controls.Add(this.btnCancel);
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel3.Location = new System.Drawing.Point(0, 185);
+			this.panel3.Location = new System.Drawing.Point(0, 205);
 			this.panel3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(507, 62);
+			this.panel3.Size = new System.Drawing.Size(507, 56);
 			this.panel3.TabIndex = 14;
 			// 
 			// btnAccept
@@ -188,7 +175,7 @@ namespace VegetablesManager.AppForm
 			this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
 			this.btnAccept.ForeColor = System.Drawing.Color.White;
 			this.btnAccept.Image = global::GUI.Properties.Resources.save;
-			this.btnAccept.Location = new System.Drawing.Point(12, 6);
+			this.btnAccept.Location = new System.Drawing.Point(8, 8);
 			this.btnAccept.Name = "btnAccept";
 			this.btnAccept.Size = new System.Drawing.Size(135, 45);
 			this.btnAccept.TabIndex = 7;
@@ -207,7 +194,7 @@ namespace VegetablesManager.AppForm
 			this.btnCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold);
 			this.btnCancel.ForeColor = System.Drawing.Color.White;
 			this.btnCancel.Image = global::GUI.Properties.Resources.exit;
-			this.btnCancel.Location = new System.Drawing.Point(358, 6);
+			this.btnCancel.Location = new System.Drawing.Point(361, 8);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(134, 45);
 			this.btnCancel.TabIndex = 8;
@@ -216,12 +203,26 @@ namespace VegetablesManager.AppForm
 			this.btnCancel.UseVisualStyleBackColor = false;
 			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
 			// 
+			// cboRight
+			// 
+			this.cboRight.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cboRight.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.cboRight.FormattingEnabled = true;
+			this.cboRight.Items.AddRange(new object[] {
+            "Nhân viên",
+            "Quản trị hệ thống",
+            "Quản lý"});
+			this.cboRight.Location = new System.Drawing.Point(204, 97);
+			this.cboRight.Name = "cboRight";
+			this.cboRight.Size = new System.Drawing.Size(288, 37);
+			this.cboRight.TabIndex = 24;
+			// 
 			// AccountHandleForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.Gray;
-			this.ClientSize = new System.Drawing.Size(507, 247);
+			this.ClientSize = new System.Drawing.Size(507, 261);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.panel3);
 			this.Controls.Add(this.panel2);
@@ -251,6 +252,6 @@ namespace VegetablesManager.AppForm
 		private CheckBox chkShowPass;
 		private Label label1;
 		private Label label3;
-		private CheckBox chkAdmin;
+		private ComboBox cboRight;
 	}
 }

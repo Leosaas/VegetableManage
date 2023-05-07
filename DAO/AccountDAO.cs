@@ -81,7 +81,7 @@ namespace DAO
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    bool type = bool.Parse(reader["type"].ToString());
+                    int type = int.Parse(reader["type"].ToString());
                     reader.Close();
                     Close();
                     account = new AccountDTO(username, password, type);
