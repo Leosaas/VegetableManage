@@ -22,7 +22,7 @@ namespace GUI
 			InitializeComponent();
 			LoadCboCategory();
 			LoadCboUnit();
-			dgvData.AutoGenerateColumns = false;
+			dgvRauCu.AutoGenerateColumns = false;
 			Reload();
 			if (!User.IsManager)
 			{
@@ -50,10 +50,10 @@ namespace GUI
 		{
 			txtName.Enabled = true;
 			txtId.Enabled = false;
-			txtId.Text = dgvData.SelectedRows[0].Cells["idproduct"].Value.ToString();
-			txtName.Text = dgvData.SelectedRows[0].Cells["product_name"].Value.ToString();
-			cboCategory.SelectedValue = dgvData.SelectedRows[0].Cells["idcategory"].Value.ToString();
-			cboUnit.SelectedValue = dgvData.SelectedRows[0].Cells["idunit"].Value.ToString();
+			txtId.Text = dgvRauCu.SelectedRows[0].Cells["idproduct"].Value.ToString();
+			txtName.Text = dgvRauCu.SelectedRows[0].Cells["product_name"].Value.ToString();
+			cboCategory.SelectedValue = dgvRauCu.SelectedRows[0].Cells["idcategory"].Value.ToString();
+			cboUnit.SelectedValue = dgvRauCu.SelectedRows[0].Cells["idunit"].Value.ToString();
 			isAddNew = false;
 			btnDelete.Enabled = true;
 		}
@@ -67,7 +67,7 @@ namespace GUI
 				return;
 			}
 			binding.DataSource = data;
-			dgvData.DataSource = binding;
+			dgvRauCu.DataSource = binding;
 			txtId.Text = "";
 			txtName.Text = "";
 			txtId.Enabled = false;
@@ -143,20 +143,20 @@ namespace GUI
 		private void txtSearch_TextChanged(object sender, EventArgs e)
 		{
 			string searchValue = txtSearch.Text;
-			foreach (DataGridViewRow row in dgvData.Rows)
+			foreach (DataGridViewRow row in dgvRauCu.Rows)
 			{
-				CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[dgvData.DataSource];
+				CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[dgvRauCu.DataSource];
 				currencyManager1.SuspendBinding();
 				row.Visible = false;
 				currencyManager1.ResumeBinding();
 			}
-			foreach (DataGridViewRow row in dgvData.Rows)
+			foreach (DataGridViewRow row in dgvRauCu.Rows)
 			{
 				foreach (DataGridViewCell cell in row.Cells)
 				{
 					if (cell.Value.ToString().Contains(searchValue))
 					{
-						CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[dgvData.DataSource];
+						CurrencyManager currencyManager1 = (CurrencyManager)BindingContext[dgvRauCu.DataSource];
 						currencyManager1.SuspendBinding();
 						row.Visible = true;
 						currencyManager1.ResumeBinding();

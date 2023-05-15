@@ -14,7 +14,8 @@ namespace DAO
         {
             string connstring;
             ServerConfigDTO server = ServerConfigDAO.ReadConfigFile();
-            string dataBaseName = "VegetableManager";
+            //   string dataBaseName = "VegetableManager";
+            string dataBaseName = server.DatabaseName;
             string serverName = server.ServerName;
             if (server.Integrated_security)
             {

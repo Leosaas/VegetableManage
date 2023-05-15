@@ -92,5 +92,10 @@ namespace GUI
 				Reload();
 			}
 		}
-	}
+
+        private void btnServerConfig_Click(object sender, EventArgs e)
+        {
+			new ServerConfigForm().ShowDialog();
+        }
+    }
 }

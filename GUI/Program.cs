@@ -17,12 +17,13 @@ namespace GUI
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			if (ServerConfigBUS.ReadConfigFile() != null)
+			if (ServerConfigBUS.ReadConfigFile() == null || !ServerConfigBUS.CheckDatabaseExist())
 			{
-				Application.Run(new FlashForm());
+				MessageBoxForm.Show("Tệp cấu hình cơ sở dữ liệu không tìm thấy hoặc cơ sở dữ liệu chưa được khởi tạo, vui lòng cấu hình cơ sở dữ liệu trước khi dùng", "Thông báo");
+				Application.Run(new ServerConfigForm());
 				return;
 			}
-			Application.Run(new ServerConfigForm());
+			Application.Run(new FlashForm());
 		}
 	}
 }
