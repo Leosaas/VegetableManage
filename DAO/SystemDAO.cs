@@ -12,14 +12,15 @@ namespace DAO
     {
 		public static string BackupDatabase()
 		{
-			string workingDirectory = Environment.CurrentDirectory;
-			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-			string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\Backup\";
-			if (IsConnectDB())
+			//string workingDirectory = Environment.CurrentDirectory;
+			//string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+            //	string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\Backup\";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\Backup\");
+            if (IsConnectDB())
 			{
 				try
 				{
-					string name = "\\backup(" + DateTime.Now.Day.ToString() + "_" +
+					string name = @"\backup(" + DateTime.Now.Day.ToString() + "_" +
 												DateTime.Now.Month.ToString() + "_" +
 												DateTime.Now.Year.ToString() + "_" +
 												DateTime.Now.Hour.ToString() + "h_" +

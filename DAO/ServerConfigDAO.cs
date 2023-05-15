@@ -94,9 +94,10 @@ namespace DAO
             ServerConfigDTO server = ReadConfigFile();
 			string workingDirectory = Environment.CurrentDirectory;
 			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-			string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\Database\";
-			string filename = path + "\\DatabaseData.mdf";
-			string logname = path + "\\DatabaseLog.ldf";
+            //	string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\Database\";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\Database\");
+            string filename = path + @"DatabaseData.mdf";
+			string logname = path + @"DatabaseLog.ldf";
 			string str;
 			SqlConnection myConn = new SqlConnection("Server="+server.ServerName+";Integrated security=SSPI;database=master");
 
@@ -156,12 +157,13 @@ end
 		}
 		public static ServerConfigDTO ReadConfigFile()
 		{
-			string workingDirectory = Environment.CurrentDirectory;
-			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-			string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\";
+			//string workingDirectory = Environment.CurrentDirectory;
+			//string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+            //string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "ServerConfig.txt");
 			try
 			{
-				string readText = File.ReadAllText(path+"ServerConfig.txt");
+				string readText = File.ReadAllText(path);
 				string[] configString = readText.Split('\n');
 				ServerConfigDTO server = new ServerConfigDTO();
 				server.ServerName = configString[0];
@@ -180,10 +182,11 @@ end
         {
 			string workingDirectory = Environment.CurrentDirectory;
 			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-			string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\";
-			try
+            //string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "ServerConfig.txt");
+            try
 			{
-				using (StreamWriter writer = new StreamWriter(path + "ServerConfig.txt"))
+				using (StreamWriter writer = new StreamWriter(path))
 				{
 					writer.WriteLine(server.ServerName);
 					writer.WriteLine(server.Username);

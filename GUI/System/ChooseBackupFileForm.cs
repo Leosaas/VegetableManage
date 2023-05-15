@@ -37,10 +37,11 @@ namespace GUI
 			DataTable dt = new DataTable();
 			dt.Columns.Add("filename", typeof(string));
 			dt.Columns["filename"].ColumnName = "Tên tập tin phục hồi";
-			string workingDirectory = Environment.CurrentDirectory;
-			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
-			string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\Backup";
-			string[] items = Directory.GetFiles(path);
+		//	string workingDirectory = Environment.CurrentDirectory;
+		//	string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+            //	string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\Backup";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\Backup");
+            string[] items = Directory.GetFiles(path);
 			foreach (string item in items)
 			{
 				dt.Rows.Add(item);
