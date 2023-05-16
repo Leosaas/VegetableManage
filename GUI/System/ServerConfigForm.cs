@@ -20,7 +20,13 @@ namespace GUI
 			InitializeComponent();
 			AcceptButton = btnAccept;
 			InitCboInstanceList();
-		
+			ServerConfigDTO server = new ServerConfigDTO();
+			server.ServerName = cboInstanceList.Text;
+			server.DatabaseName = txtDatabaseName.Text;
+			if (ServerConfigBUS.CheckDatabaseExist(server))
+			{
+				extendPanel.Visible = true;
+			}
 
         }
 		private void InitCboInstanceList()
@@ -28,7 +34,7 @@ namespace GUI
             List<string> data = ServerConfigBUS.GetListInstanceOfServer();
             if (data == null)
             {
-				MessageBoxForm.Show("Không thể lấy danh sách máy chủ từ cơ sở dữ liệu !","Thông báo");
+				MessageBoxForm.Show("Không thể lấy danh sách máy chủ từ cơ sở dữ liệu !, hãy thử cài đặt SQL SERVER 2019 trở lên	","Thông báo");
 				return;
             }
 			cboInstanceList.DataSource = data;
@@ -44,38 +50,46 @@ namespace GUI
 
 		private void btnLogin_Click(object sender, EventArgs e)
 		{
-			ServerConfigDTO server = new ServerConfigDTO();
-			server.ServerName = cboInstanceList.Text;
-			if (radWindow.Checked)
-			{
-				server.Integrated_security = radWindow.Checked;
-			}
-			else
-			{
-				server.Username = txtUsername.Text;
-				server.Password = txtPassword.Text;
+            if (string.IsNullOrEmpty(txtDatabaseName.Text))
+            {
+                MessageBoxForm.Show("Tên cơ sở dữ liệu không được bỏ trống", "Thông báo");
+                return;
+            }
+            ServerConfigDTO server = new ServerConfigDTO();
+            server.ServerName = cboInstanceList.Text;
+            if (radWindow.Checked)
+            {
+                server.Integrated_security = radWindow.Checked;
+            }
+            else
+            {
+                server.Username = txtUsername.Text;
+                server.Password = txtPassword.Text;
                 server.Integrated_security = radWindow.Checked;
 
             }
-			if (string.IsNullOrEmpty(txtDatabaseName.Text))
-			{
-				MessageBoxForm.Show("Tên cơ sở dữ liệu không được bỏ trống", "Thông báo");
-				return;
-			}
-				
-			server.DatabaseName = txtDatabaseName.Text;
-			
-			
-			string message = ServerConfigBUS.WriteConfigFile(server);
-			if (message != null)
-			{
-				MessageBoxForm.Show("Không thể cấu hình máy chủ do lỗi: " + message, "Thông báo");
-				return;
-			}
-			MessageBoxForm.Show("Cấu hình thành công, vui lòng khởi động lại hệ thống để áp dụng thay đổi", "Thông báo");
-			Application.Exit();
+            server.DatabaseName = txtDatabaseName.Text;
 
-		}
+            string message = ServerConfigBUS.WriteConfigFile(server);
+            if (message != null)
+            {
+                MessageBoxForm.Show("Không thể cấu hình máy chủ do lỗi: " + message, "Thông báo");
+                return;
+            }
+            if (extendPanel.Visible == false || (extendPanel.Visible == true && radRenewDatabase.Checked))
+			{
+				message = ServerConfigBUS.CreateDatabase();
+                if (message != null)
+                {
+                    MessageBoxForm.Show("Không thể cấu hình máy chủ do lỗi: " + message, "Thông báo");
+                    return;
+                }
+             
+            }
+            MessageBoxForm.Show("Cấu hình thành công, vui lòng khởi động lại hệ thống để áp dụng thay đổi", "Thông báo");
+            Application.Exit();
+
+        }
 
 
 		private void chkShowPass_CheckedChanged(object sender, EventArgs e)
@@ -107,5 +121,22 @@ namespace GUI
 		{
 			
 		}
-	}
+
+        private void txtDatabaseName_TextChanged(object sender, EventArgs e)
+        {
+            ServerConfigDTO server = new ServerConfigDTO();
+            server.ServerName = cboInstanceList.Text;
+            server.DatabaseName = txtDatabaseName.Text;
+            if (ServerConfigBUS.CheckDatabaseExist(server))
+            {
+                extendPanel.Visible = true;
+            }else
+				extendPanel.Visible = false;
+        }
+
+        private void cboInstanceList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

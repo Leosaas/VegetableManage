@@ -9,9 +9,13 @@ namespace BUS
 {
     public class ServerConfigBUS
     {
-        public static bool CheckDatabaseExist()
+        public static string CreateDatabase()
 		{
-			return ServerConfigDAO.CheckDatabaseExist();
+			return ServerConfigDAO.CreateDatabase();
+		}
+        public static bool CheckDatabaseExist(ServerConfigDTO server)
+		{
+			return ServerConfigDAO.CheckDatabaseExist(server);
 		}
         public static List<string> GetListInstanceOfServer()
 		{

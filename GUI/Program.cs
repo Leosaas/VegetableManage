@@ -1,7 +1,9 @@
 ﻿using BUS;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,13 +19,24 @@ namespace GUI
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			if (ServerConfigBUS.ReadConfigFile() == null || !ServerConfigBUS.CheckDatabaseExist())
+			ServerConfigDTO server = ServerConfigBUS.ReadConfigFile();
+
+			if (server == null)
 			{
-				MessageBoxForm.Show("Tệp cấu hình cơ sở dữ liệu không tìm thấy hoặc cơ sở dữ liệu chưa được khởi tạo, vui lòng cấu hình cơ sở dữ liệu trước khi dùng", "Thông báo");
+				MessageBoxForm.Show("Không tìm thấy file cấu hình, vui lòng cấu hình cơ sở dữ liệu trước khi dùng", "Thông báo");
 				Application.Run(new ServerConfigForm());
 				return;
 			}
-			Application.Run(new FlashForm());
+            server.ServerName = Regex.Replace(server.ServerName, @"\t|\n|\r", "");
+			server.DatabaseName = Regex.Replace(server.DatabaseName, @"\t|\n|\r", "");
+			if (!ServerConfigBUS.CheckDatabaseExist(server))
+			{
+                MessageBoxForm.Show("Cơ sở dữ liệu chưa được tạo, vui lòng cấu hình cơ sở dữ liệu trước khi dùng", "Thông báo");
+                Application.Run(new ServerConfigForm());
+                return;
+            }
+
+            Application.Run(new FlashForm());
 		}
 	}
 }

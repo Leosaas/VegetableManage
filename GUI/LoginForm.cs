@@ -13,8 +13,9 @@ namespace GUI
 		{
 
 			InitializeComponent();
-			AcceptButton = btnLogin;
-
+            txtUsername.Focus();
+            AcceptButton = btnLogin;
+		
 		}
 
 		private void btnExit_Click(object sender, EventArgs e)

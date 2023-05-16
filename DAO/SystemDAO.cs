@@ -20,7 +20,7 @@ namespace DAO
 			{
 				try
 				{
-					string name = @"\backup(" + DateTime.Now.Day.ToString() + "_" +
+					string name = @"backup(" + DateTime.Now.Day.ToString() + "_" +
 												DateTime.Now.Month.ToString() + "_" +
 												DateTime.Now.Year.ToString() + "_" +
 												DateTime.Now.Hour.ToString() + "h_" +
@@ -45,17 +45,25 @@ namespace DAO
 
 			if (IsConnectDB())
 			{
-				try
+				string newPath = Path.Combine(Environment.CurrentDirectory, @"Data\Database\");
+                string filename = newPath + @"DatabaseData.mdf";
+                string logname = newPath + @"DatabaseLog.ldf";
+                try
 				{
 					
 					string query = @"use master;
 									Alter Database VegetableManager set offline with rollback immediate;
-									exec RestoreDatabase @Path = @path
+									RESTORE DATABASE VegetableManager
+									FROM DISK = @Path WITH REPLACE,
+									MOVE 'VegetableManager' TO @FileName, 
+									MOVE 'VegetableManager_log' TO @LogName
 									alter database VegetableManager set online;";
 
 					var cmd = new SqlCommand(query, connection);
-					cmd.Parameters.AddWithValue("path", path);
-					cmd.ExecuteNonQuery();
+					cmd.Parameters.AddWithValue("@Path", path);
+                    cmd.Parameters.AddWithValue("@FileName", filename);
+                    cmd.Parameters.AddWithValue("@LogName", logname);
+                    cmd.ExecuteNonQuery();
 					return null;
 				}
 				catch (Exception e)

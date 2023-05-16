@@ -8,6 +8,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DAO
 {
@@ -40,17 +41,16 @@ namespace DAO
             }
 			return list;
         }
-		public static bool CheckDatabaseExist()
+		public static bool CheckDatabaseExist(ServerConfigDTO server)
         {
             string sqlCreateDBQuery;
             bool result = false;
-            ServerConfigDTO server = ReadConfigFile();
             try
             {
                 SqlConnection myConn = new SqlConnection("Server=" + server.ServerName + ";Integrated security=SSPI;database=master");
 
                 sqlCreateDBQuery = string.Format(@"SELECT database_id FROM sys.databases WHERE Name 
-                = '{0}'", "VegetableManager");
+                = '{0}'", server.DatabaseName);
         
             using (myConn)
                 {
@@ -87,10 +87,7 @@ namespace DAO
 		public static string CreateDatabase()
 		{
 
-            if(CheckDatabaseExist())
-            {
-                return null;
-            }
+            
             ServerConfigDTO server = ReadConfigFile();
 			string workingDirectory = Environment.CurrentDirectory;
 			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
@@ -100,23 +97,45 @@ namespace DAO
 			string logname = path + @"DatabaseLog.ldf";
 			string str;
 			SqlConnection myConn = new SqlConnection("Server="+server.ServerName+";Integrated security=SSPI;database=master");
+           /* if (CheckDatabaseExist(server))
+            {
+                string sql = @"     Alter Database VegetableManager set offline with rollback immediate;
+                                    drop database VegetableManager";
+                SqlCommand command = new SqlCommand(sql, myConn);
+                myConn.Open();
+                command.ExecuteNonQuery();
+                myConn.Close();
+            }*/
+            str = string.Format(@"
+                                IF DB_ID('VegetableManager') IS NOT NULL 
+                                begin
+  DECLARE @DatabaseName nvarchar(50)
+SET @DatabaseName = N'VegetableManager'
 
-			str = string.Format(@"
-IF DB_ID('VegetableManager') IS NULL 
-Begin
-CREATE DATABASE {0} ON
-(NAME = {1},
-    FILENAME = '{2}',
-    SIZE = 10,
-    MAXSIZE = 50,
-    FILEGROWTH = 5)
-LOG ON
-(NAME = {3},
-    FILENAME = '{4}',
-    SIZE = 5 MB,
-    MAXSIZE = 25 MB,
-    FILEGROWTH = 5 MB);
-end
+DECLARE @SQL varchar(max)
+
+SELECT @SQL = COALESCE(@SQL,'') + 'Kill ' + Convert(varchar, SPId) + ';'
+FROM MASTER..SysProcesses
+WHERE DBId = DB_ID(@DatabaseName) AND SPId <> @@SPId
+
+--SELECT @SQL 
+EXEC(@SQL)
+
+DROP DATABASE VegetableManager
+                                end
+                                CREATE DATABASE {0} ON
+                                (   NAME = {1},
+                                    FILENAME = '{2}',
+                                    SIZE = 10,
+                                    MAXSIZE = 50,
+                                    FILEGROWTH = 5)
+                                LOG ON
+                                (   NAME = {3},
+                                    FILENAME = '{4}',
+                                    SIZE = 5 MB,
+                                    MAXSIZE = 25 MB,
+                                    FILEGROWTH = 5 MB)
+                                
 ", server.DatabaseName, "Database_dat", filename, "Database_log", logname);
 			SqlCommand myCommand = new SqlCommand(str, myConn);
 
@@ -180,8 +199,8 @@ end
 		}
 		public static string WriteConfigFile(ServerConfigDTO server)
         {
-			string workingDirectory = Environment.CurrentDirectory;
-			string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+			//string workingDirectory = Environment.CurrentDirectory;
+			//string projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
             //string path = Directory.GetParent(projectDirectory).Parent.FullName + @"\VegetableManage\Data\";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "ServerConfig.txt");
             try
@@ -194,7 +213,7 @@ end
 					writer.WriteLine(server.Integrated_security);
                     writer.WriteLine(server.DatabaseName);
                 }
-				return CreateDatabase();
+				return null;
 			}
 			catch(Exception ex)
 			{
